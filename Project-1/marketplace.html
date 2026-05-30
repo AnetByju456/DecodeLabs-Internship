@@ -69,23 +69,22 @@
             <div class="market-search">
 
                 <input
-                    type="text"
-                    placeholder="Search products..."
-                    class="search-input"
-                >
+    type="text"
+    placeholder="Search products..."
+    class="search-input"
+    id="searchInput"
+>
 
-                <select class="search-category">
+                <select class="search-category" id="categoryFilter">
+    <option value="all">All Categories</option>
+    <option value="electronics">Electronics</option>
+    <option value="books">Books</option>
+    <option value="furniture">Furniture</option>
+    <option value="sports">Sports</option>
+    <option value="fashion">Fashion</option>
+</select>
 
-                    <option>All Categories</option>
-                    <option>Electronics</option>
-                    <option>Books</option>
-                    <option>Furniture</option>
-                    <option>Sports</option>
-                    <option>Fashion</option>
-
-                </select>
-
-                <button class="btn-primary">
+                <button class="btn-primary" id="categorySearchBtn">
                     Search
                 </button>
 
@@ -123,15 +122,13 @@
 
                 <select id="sort">
 
-                    <option>Newest</option>
+    <option value="newest">Newest</option>
 
-                    <option>Price Low to High</option>
+    <option value="low">Price Low to High</option>
 
-                    <option>Price High to Low</option>
+    <option value="high">Price High to Low</option>
 
-                    <option>Most Popular</option>
-
-                </select>
+</select>
 
             </div>
 
@@ -146,74 +143,92 @@
             <div class="product-grid">
 
                 <!-- Product 1 -->
-                <article class="product-card">
+                <article class="product-card"
+         data-type="sell"
+         data-category="electronics"
+         data-price="35000">
                     <img src="assets/images/laptop.jpeg" alt="Laptop">
                     <div class="product-content">
                         <span class="product-tag">Sell</span>
                         <h3>Gaming Laptop</h3>
                         <p>High performance laptop for students and developers.</p>
                         <strong>₹35,000</strong>
-                        <button class="btn-primary product-btn">View Details</button>
+                        <a href="product.html" class="btn-primary product-btn">View Details</a>
                     </div>
                 </article>
 
                 <!-- Product 2 -->
-                <article class="product-card">
+                <article class="product-card"
+         data-type="sell"
+         data-category="books"
+         data-price="800">
                     <img src="assets/images/books.jpeg" alt="Books">
                     <div class="product-content">
                         <span class="product-tag">Sell</span>
                         <h3>Engineering Books</h3>
                         <p>Semester textbooks in excellent condition.</p>
                         <strong>₹800</strong>
-                        <button class="btn-primary product-btn">View Details</button>
+                        <a href="product.html" class="btn-primary product-btn">View Details</a>
                     </div>
                 </article>
 
                 <!-- Product 3 -->
-                <article class="product-card">
+                <article class="product-card"
+         data-type="borrow"
+         data-category="sports"
+         data-price="0">
                     <img src="assets/images/bicycle.jpeg" alt="Bicycle">
                     <div class="product-content">
                         <span class="product-tag borrow">Borrow</span>
                         <h3>Bicycle</h3>
                         <p>Available for temporary use.</p>
                         <strong>Available</strong>
-                        <button class="btn-primary product-btn">View Details</button>
+                        <a href="product.html" class="btn-primary product-btn">View Details</a>
                     </div>
                 </article>
 
                 <!-- Product 4 -->
-                <article class="product-card">
+                <article class="product-card"
+         data-type="borrow"
+         data-category="electronics"
+         data-price="0">
                     <img src="assets/images/camera.jpeg" alt="Camera">
                     <div class="product-content">
                         <span class="product-tag borrow">Borrow</span>
                         <h3>DSLR Camera</h3>
                         <p>Perfect for events and photography projects.</p>
                         <strong>Available</strong>
-                        <button class="btn-primary product-btn">View Details</button>
+                        <a href="product.html" class="btn-primary product-btn">View Details</a>
                     </div>
                 </article>
 
                 <!-- Product 5 -->
-                <article class="product-card">
+               <article class="product-card"
+         data-type="lend"
+         data-category="furniture"
+         data-price="2500">
                     <img src="assets/images/chair.jpeg" alt="Chair">
                     <div class="product-content">
                         <span class="product-tag">Sell</span>
                         <h3>Office Chair</h3>
                         <p>Ergonomic chair with adjustable height.</p>
                         <strong>₹2,500</strong>
-                        <button class="btn-primary product-btn">View Details</button>
+                        <a href="product.html" class="btn-primary product-btn">View Details</a>
                     </div>
                 </article>
 
                 <!-- Product 6 -->
-                <article class="product-card">
+                <article class="product-card"
+         data-type="buy"
+         data-category="sports"
+         data-price="1500">
                     <img src="assets/images/sports.jpeg" alt="Sports Kit">
                     <div class="product-content">
                         <span class="product-tag">Sell</span>
                         <h3>Sports Kit</h3>
                         <p>Complete cricket equipment set.</p>
                         <strong>₹1,500</strong>
-                        <button class="btn-primary product-btn">View Details</button>
+                        <a href="product.html" class="btn-primary product-btn">View Details</a>
                     </div>
                 </article>
 

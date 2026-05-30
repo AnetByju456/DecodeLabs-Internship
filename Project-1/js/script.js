@@ -142,50 +142,177 @@ if(registerForm){
 }
 
 /* =========================
-   MARKETPLACE FILTERS
+   COMBINED MARKETPLACE FILTER
 ========================= */
+
+const searchInput =
+document.getElementById("searchInput");
+
+const categoryFilter =
+document.getElementById("categoryFilter");
 
 const filterButtons =
 document.querySelectorAll(".filter-btn");
 
-const products =
+const productCards =
 document.querySelectorAll(".product-card");
 
-filterButtons.forEach(button => {
+let currentType = "all";
 
-    button.addEventListener("click", () => {
+/* MAIN FILTER FUNCTION */
 
-        filterButtons.forEach(btn => {
-            btn.classList.remove("active-filter");
+function filterProducts(){
+
+    const searchText =
+    searchInput.value.toLowerCase();
+
+    const selectedCategory =
+    categoryFilter.value;
+
+    productCards.forEach(card=>{
+
+        const title =
+        card.querySelector("h3")
+        .textContent
+        .toLowerCase();
+
+        const category =
+        card.dataset.category;
+
+        const type =
+        card.dataset.type;
+
+        const matchesSearch =
+        title.includes(searchText);
+
+        const matchesCategory =
+        selectedCategory === "all" ||
+        category === selectedCategory;
+
+        const matchesType =
+        currentType === "all" ||
+        type === currentType;
+
+        if(
+            matchesSearch &&
+            matchesCategory &&
+            matchesType
+        ){
+
+            card.style.display = "flex";
+
+        }else{
+
+            card.style.display = "none";
+        }
+
+    });
+
+
+    sortProducts();
+}
+
+/* SEARCH */
+
+if(searchInput){
+
+    searchInput.addEventListener(
+        "input",
+        filterProducts
+    );
+}
+
+/* CATEGORY */
+
+if(categoryFilter){
+
+    categoryFilter.addEventListener(
+        "change",
+        filterProducts
+    );
+}
+
+/* TYPE FILTER */
+
+filterButtons.forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        filterButtons.forEach(btn=>{
+
+            btn.classList.remove(
+                "active-filter"
+            );
+
         });
 
-        button.classList.add("active-filter");
+        button.classList.add(
+            "active-filter"
+        );
 
-        const filter =
+        currentType =
         button.dataset.filter;
 
-        products.forEach(product => {
-
-            const type =
-            product.dataset.type;
-
-            if(filter === "all"){
-
-                product.style.display = "block";
-
-            }
-            else if(type === filter){
-
-                product.style.display = "block";
-
-            }
-            else{
-
-                product.style.display = "none";
-            }
-
-        });
+        filterProducts();
 
     });
 
 });
+
+
+/* =========================
+   SORTING
+========================= */
+
+const sortSelect =
+document.getElementById("sort");
+
+function sortProducts(){
+
+    const productGrid =
+    document.querySelector(".product-grid");
+
+    if(!productGrid) return;
+
+    const cards =
+    Array.from(
+        productGrid.querySelectorAll(".product-card")
+    );
+
+    const sortValue =
+    sortSelect.value;
+
+    if(sortValue === "low"){
+
+        cards.sort((a,b)=>
+            Number(a.dataset.price) -
+            Number(b.dataset.price)
+        );
+
+    }
+
+    else if(sortValue === "high"){
+
+        cards.sort((a,b)=>
+            Number(b.dataset.price) -
+            Number(a.dataset.price)
+        );
+
+    }
+
+    cards.forEach(card=>{
+
+        productGrid.appendChild(card);
+
+    });
+
+}
+
+if(sortSelect){
+
+    sortSelect.addEventListener(
+        "change",
+        sortProducts
+    );
+
+}
