@@ -1,0 +1,267 @@
+/* =========================
+   RESET
+========================= */
+
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* =========================
+   ROOT VARIABLES
+========================= */
+
+:root{
+
+    /* Brand Colors */
+
+    --primary-color:#2563eb;
+    --primary-hover:#1d4ed8;
+
+    --secondary-color:#f97316;
+
+    --success-color:#10b981;
+
+    /* Neutral Colors */
+
+    --background-color:#f8fafc;
+    --surface-color:#ffffff;
+
+    --text-primary:#0f172a;
+    --text-secondary:#475569;
+
+    --border-color:#e2e8f0;
+
+    /* Typography */
+
+    --font-family:'Inter',sans-serif;
+
+    --fw-regular:400;
+    --fw-medium:500;
+    --fw-bold:700;
+
+    /* Spacing */
+
+    --spacing-xs:0.5rem;
+    --spacing-sm:1rem;
+    --spacing-md:1.5rem;
+    --spacing-lg:2rem;
+    --spacing-xl:4rem;
+
+    /* Radius */
+
+    --radius-sm:8px;
+    --radius-md:12px;
+    --radius-lg:20px;
+
+    /* Shadow */
+
+    --shadow-sm:0 2px 8px rgba(0,0,0,0.05);
+
+    --shadow-md:0 10px 25px rgba(0,0,0,0.08);
+
+    /* Transition */
+
+    --transition:0.3s ease;
+}
+
+/* =========================
+   BODY
+========================= */
+
+body{
+
+    font-family:var(--font-family);
+
+    background-color:var(--background-color);
+
+    color:var(--text-primary);
+
+    line-height:1.6;
+
+    min-height:100vh;
+}
+
+/* =========================
+   IMAGES
+========================= */
+
+img{
+
+    width:100%;
+    display:block;
+}
+
+/* =========================
+   LINKS
+========================= */
+
+a{
+
+    text-decoration:none;
+    color:inherit;
+}
+
+/* =========================
+   LISTS
+========================= */
+
+ul{
+
+    list-style:none;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+
+    width:min(90%,1200px);
+
+    margin:auto;
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+h1,
+h2,
+h3,
+h4{
+
+    line-height:1.2;
+    font-weight:var(--fw-bold);
+}
+
+h1{
+
+    font-size:clamp(2rem,5vw,4rem);
+}
+
+h2{
+
+    font-size:clamp(1.8rem,4vw,3rem);
+}
+
+h3{
+
+    font-size:1.4rem;
+}
+
+p{
+
+    color:var(--text-secondary);
+
+    font-size:1rem;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn-primary{
+
+    background-color:var(--primary-color);
+
+    color:white;
+
+    border:none;
+
+    padding:0.9rem 1.5rem;
+
+    border-radius:var(--radius-sm);
+
+    cursor:pointer;
+
+    font-weight:var(--fw-medium);
+
+    transition:var(--transition);
+}
+
+.btn-primary:hover{
+
+    background-color:var(--primary-hover);
+}
+
+.btn-secondary{
+
+    background-color:var(--secondary-color);
+
+    color:white;
+
+    border:none;
+
+    padding:0.9rem 1.5rem;
+
+    border-radius:var(--radius-sm);
+
+    cursor:pointer;
+
+    font-weight:var(--fw-medium);
+
+    transition:var(--transition);
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+
+    background:var(--surface-color);
+
+    padding:var(--spacing-md);
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-sm);
+
+    transition:var(--transition);
+}
+
+.card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow-md);
+}
+
+/* =========================
+   SECTION SPACING
+========================= */
+
+section{
+
+    padding:var(--spacing-xl) 0;
+}
+
+/* =========================
+   DESIGN PREVIEW
+========================= */
+
+.design-preview{
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    gap:1rem;
+}
+
+.design-preview p{
+
+    max-width:600px;
+}
