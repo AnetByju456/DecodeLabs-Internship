@@ -647,3 +647,174 @@ footer {
         grid-template-columns:repeat(3,1fr);
     }
 }
+
+/* =========================
+   AUTH PAGES
+========================= */
+
+.auth-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:2rem;
+}
+
+.auth-card{
+
+    background:white;
+
+    width:100%;
+
+    max-width:500px;
+
+    padding:2rem;
+
+    border-radius:16px;
+
+    box-shadow:var(--shadow-md);
+}
+
+.auth-card h1{
+
+    text-align:center;
+
+    margin-bottom:0.5rem;
+}
+
+.auth-subtitle{
+
+    text-align:center;
+
+    margin-bottom:2rem;
+}
+
+.form-group{
+
+    margin-bottom:1.2rem;
+}
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:0.5rem;
+
+    font-weight:500;
+}
+
+.form-group input{
+
+    width:100%;
+
+    padding:1rem;
+
+    border:1px solid var(--border-color);
+
+    border-radius:8px;
+
+    font-size:1rem;
+}
+
+.password-wrapper{
+
+    position:relative;
+}
+
+.toggle-password{
+
+    position:absolute;
+
+    right:12px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    background:none;
+
+    border:none;
+
+    color:var(--primary-color);
+
+    cursor:pointer;
+
+    font-weight:600;
+}
+
+.auth-btn{
+
+    width:100%;
+
+    margin-top:1rem;
+}
+
+.auth-footer{
+
+    text-align:center;
+
+    margin-top:1.5rem;
+}
+
+.auth-footer a{
+
+    color:var(--primary-color);
+
+    font-weight:600;
+}
+
+.forgot-password{
+
+    display:block;
+
+    text-align:right;
+
+    margin-bottom:1rem;
+
+    color:var(--primary-color);
+}
+
+.interest-group{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:1rem;
+}
+
+.interest-group label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:0.5rem;
+
+    padding:0.75rem;
+
+    border:1px solid var(--border-color);
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+}
+
+.interest-group label:hover{
+
+    border-color:var(--primary-color);
+}
+
+.interest-group input{
+
+    width:auto;
+
+    margin:0;
+}
