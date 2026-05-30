@@ -818,3 +818,138 @@ footer {
 
     margin:0;
 }
+
+/* MARKETPLACE */
+
+.marketplace-hero{
+
+    text-align:center;
+
+    padding:4rem 0;
+}
+
+.market-search{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1rem;
+
+    margin-bottom:2rem;
+}
+
+.filter-section{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:0.75rem;
+
+    margin-bottom:2rem;
+}
+
+.filter-btn{
+
+    border:none;
+
+    background:white;
+
+    padding:0.75rem 1.25rem;
+
+    border-radius:999px;
+
+    cursor:pointer;
+
+    border:1px solid var(--border-color);
+}
+
+.active-filter{
+
+    background:var(--primary-color);
+
+    color:white;
+}
+
+.sort-container{
+
+    margin-bottom:2rem;
+}
+
+.sort-container select{
+
+    margin-top:0.5rem;
+
+    padding:0.75rem;
+
+    width:100%;
+
+    border:1px solid var(--border-color);
+
+    border-radius:8px;
+}
+
+.product-btn{
+
+    width:100%;
+
+    margin-top:1rem;
+}
+
+.pagination{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:0.5rem;
+}
+
+.page-btn{
+
+    border:none;
+
+    padding:0.75rem 1rem;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    background:white;
+
+    border:1px solid var(--border-color);
+}
+
+.active-page{
+
+    background:var(--primary-color);
+
+    color:white;
+}
+
+@media(min-width:768px){
+
+    .market-search{
+
+        display:grid;
+
+        grid-template-columns:2fr 1fr auto;
+    }
+}
+
+.filter-btn{
+
+    transition:0.3s;
+
+    font-weight:500;
+}
+
+.filter-btn:hover{
+
+    transform:translateY(-2px);
+
+    border-color:var(--primary-color);
+}

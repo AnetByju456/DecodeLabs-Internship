@@ -140,3 +140,52 @@ if(registerForm){
     });
 
 }
+
+/* =========================
+   MARKETPLACE FILTERS
+========================= */
+
+const filterButtons =
+document.querySelectorAll(".filter-btn");
+
+const products =
+document.querySelectorAll(".product-card");
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        filterButtons.forEach(btn => {
+            btn.classList.remove("active-filter");
+        });
+
+        button.classList.add("active-filter");
+
+        const filter =
+        button.dataset.filter;
+
+        products.forEach(product => {
+
+            const type =
+            product.dataset.type;
+
+            if(filter === "all"){
+
+                product.style.display = "block";
+
+            }
+            else if(type === filter){
+
+                product.style.display = "block";
+
+            }
+            else{
+
+                product.style.display = "none";
+            }
+
+        });
+
+    });
+
+});
