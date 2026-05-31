@@ -399,3 +399,39 @@ document
 visible
 ? "none"
 : "block";
+
+
+
+/* ROLE FILTER */
+
+const role =
+localStorage.getItem(
+"userRole"
+);
+
+if(role){
+
+const cards =
+document.querySelectorAll(
+".product-card"
+);
+
+cards.forEach(card=>{
+
+const type =
+card.dataset.type;
+
+if(
+role==="seller"
+&&
+type==="borrow"
+){
+
+card.style.display=
+"none";
+
+}
+
+});
+
+}
