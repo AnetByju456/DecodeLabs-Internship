@@ -316,3 +316,86 @@ if(sortSelect){
     );
 
 }
+
+
+const themeToggle =
+document.getElementById(
+"themeToggle"
+);
+
+if(themeToggle){
+
+themeToggle.addEventListener(
+"click",
+()=>{
+
+document.body.classList.toggle(
+"dark-theme"
+);
+
+themeToggle.textContent =
+document.body.classList.contains(
+"dark-theme"
+)
+
+? "☀️"
+: "🌙";
+
+}
+
+);
+
+}
+
+/* =========================
+ACTIVE NAV
+========================= */
+
+const currentPage =
+window.location.pathname
+.split("/")
+.pop();
+
+document
+.querySelectorAll(
+".nav-links a"
+)
+.forEach(link=>{
+
+const href =
+link.getAttribute(
+"href"
+);
+
+if(href===currentPage){
+
+link.classList.add(
+"active"
+);
+
+}
+
+});
+
+
+
+const visible =
+
+Array.from(
+productCards
+)
+
+.some(
+p=>
+p.style.display!=="none"
+);
+
+document
+.getElementById(
+"emptyState"
+)
+.style.display=
+
+visible
+? "none"
+: "block";
