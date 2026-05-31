@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,
+initial-scale=1,
+maximum-scale=1,
+user-scalable=no">
     <title>TradeMart - Login</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +16,7 @@
 
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
     <main class="auth-page">
@@ -32,12 +37,7 @@
                         Email Address
                     </label>
 
-                    <input
-                        type="email"
-                        id="loginEmail"
-                        placeholder="Enter your email"
-                        required
-                    >
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
 
                 </div>
 
@@ -49,69 +49,52 @@
 
                     <div class="password-wrapper">
 
-                        <input
-                            type="password"
-                            id="loginPassword"
-                            placeholder="Enter password"
-                            required
-                        >
+                        <input type="password" id="loginPassword" required>
 
-                        <button
-                            type="button"
-                            class="toggle-password"
-                            data-target="loginPassword"
-                        >
+                        <button type="button" class="toggle-password" data-target="loginPassword">
+
                             Show
+
                         </button>
 
                     </div>
 
                 </div>
 
-                <a href="#" class="forgot-password">
-                    Forgot Password?
-                </a>
-
-
                 <div class="form-group">
 
-    <label>
-        Login As
-    </label>
+                    <label>
 
-    <div class="interest-group">
+                        Login As
 
-        <label>
+                    </label>
 
-            <input
-                type="radio"
-                name="userRole"
-                value="buyer"
-                checked
-            >
+                    <div class="interest-group">
 
-            Buyer
+                        <label>
 
-        </label>
+                            <input type="radio" name="userRole" value="buyer" checked>
 
-        <label>
+                            Buyer
 
-            <input
-                type="radio"
-                name="userRole"
-                value="seller"
-            >
+                        </label>
 
-            Seller
+                        <label>
 
-        </label>
+                            <input type="radio" name="userRole" value="seller">
 
-    </div>
+                            Seller
 
-</div>
+                        </label>
+
+                    </div>
+
+                </div>
 
                 <button type="submit" class="btn-primary auth-btn">
+
                     Login
+
                 </button>
 
             </form>
@@ -133,4 +116,5 @@
     <script src="js/script.js"></script>
 
 </body>
+
 </html>

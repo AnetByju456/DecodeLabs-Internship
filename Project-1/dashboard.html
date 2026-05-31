@@ -3,405 +3,258 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,
+initial-scale=1,
+maximum-scale=1,
+user-scalable=no">
 
-<title>TradeMart Dashboard</title>
+    <title>TradeMart Dashboard</title>
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet"
-href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-<header>
+    <header>
 
-<div class="container">
+        <div class="container">
 
-<nav class="navbar">
+            <<nav class="navbar">
 
-<a href="index.html"
-class="logo">
+                <a href="index.html" class="logo">
 
-TradeMart
+                    <img src="assets/images/logo.jpeg" alt="TradeMart" class="logo-img">
 
-</a>
+                    <span>
+                        TradeMart
+                    </span>
 
-<button class="menu-btn"
-id="menuBtn">
+                </a>
 
-☰
+                <button class="menu-btn" id="menuBtn">
 
-</button>
+                    ☰
 
-<ul class="nav-links"
-id="navLinks">
+                </button>
 
-<li>
-<a href="index.html">
-Home
-</a>
-</li>
+                <ul class="nav-links" id="navLinks">
 
-<li>
-<a href="marketplace.html">
-Marketplace
-</a>
-</li>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
 
-<li>
-<a href="dashboard.html">
-Dashboard
-</a>
-</li>
+                    <li>
+                        <a href="marketplace.html">Marketplace</a>
+                    </li>
 
-<li><a href="profile.html">Profile</a></li>
+                    <li>
+                        <a href="dashboard.html">Dashboard</a>
+                    </li>
 
-<li>
-<a href="login.html">
-Login
-</a>
-</li>
+                    <li>
+                        <a href="profile.html">Profile</a>
+                    </li>
 
-</ul>
+                    <li>
+                        <a href="login.html">Login</a>
+                    </li>
 
-</nav>
+                </ul>
 
-</div>
+                </nav>
 
-</header>
+        </div>
 
-<main>
+    </header>
 
-<section id="listings">
+    <main>
 
-<div class="container">
+        <section>
 
-<div class="dashboard-header">
+            <div class="container">
 
-<h1>
-Welcome Back
-</h1>
+                <div class="dashboard-header">
 
-<p>
-Manage your marketplace activity.
-</p>
+                    <h1 id="dashboardTitle">
 
-</div>
+                        Welcome
 
-<div class="dashboard-stats">
+                    </h1>
 
-<a href="#listings" class="card stat-card">
+                    <p id="dashboardSubtitle">
 
-<h2>
-12
-</h2>
+                        Loading...
 
-<p>
-Active Listings
-</p>
+                    </p>
 
-</a>
+                </div>
 
-<a href="#orders"  class="card stat-card">
+            </div>
 
-<h2>
-8
-</h2>
+        </section>
 
-<p>
-Purchases
-</p>
+        <section>
 
-</a>
+            <div class="container">
 
-<a href="#requests"  class="card stat-card">
+                <div id="sellerView" style="display:none;">
 
-<h2>
-5
-</h2>
+                    <h2>
 
-<p>
-Borrow Requests
-</p>
+                        Seller Dashboard
 
-</a>
+                    </h2>
 
-<a href="#"  class="card stat-card">
+                    <br>
 
-<h2>
-₹12K
-</h2>
+                    <div class="dashboard-actions">
 
-<p>
-Total Earnings
-</p>
+                        <a href="marketplace.html" class="btn-primary">
 
-</a>
+                            Add Listing
 
-</div>
+                        </a>
 
-</div>
+                        <a href="#listings" class="btn-secondary">
 
-</section>
+                            Manage Listings
 
-<section>
+                        </a>
 
-<div class="container">
+                        <a href="#requests" class="btn-primary">
 
-<h2>
-Quick Actions
-</h2>
+                            Requests
 
-<div class="dashboard-actions">
+                        </a>
 
-<a
-href="marketplace.html"
-class="btn-primary dashboard-btn">
+                    </div>
 
-Add Listing
+                </div>
 
-</a>
+                <div id="buyerView" style="display:none;">
 
-<a
-href="#orders"
-class="btn-secondary dashboard-btn">
+                    <h2>
 
-View Orders
+                        Buyer Dashboard
 
-</a>
+                    </h2>
 
-<a
-href="#requests"
-class="btn-primary dashboard-btn">
+                    <br>
 
-Manage Requests
+                    <div class="dashboard-actions">
 
-</a>
+                        <a href="marketplace.html" class="btn-primary">
 
-</div>
+                            Browse Products
 
-</div>
+                        </a>
 
-</section>
+                        <a href="cart.html" class="btn-secondary">
 
-<section>
+                            My Cart
 
-<div class="container">
+                        </a>
 
-<h2>
-Recent Activity
-</h2>
+                        <a href="#orders" class="btn-primary">
 
-<div class="activity-list">
+                            Orders
 
-<div class="card">
+                        </a>
 
-<p>
-Laptop sold successfully.
-</p>
+                    </div>
 
-</div>
+                </div>
 
-<div class="card">
+            </div>
 
-<p>
-Borrow request approved.
-</p>
+        </section>
 
-</div>
+        <section>
 
-<div class="card">
+            <div class="container">
 
-<p>
-Books listed.
-</p>
+                <div class="dashboard-stats">
 
-</div>
+                    <div class="card">
 
-</div>
+                        <h2>
 
-</div>
+                            12
 
-</section>
+                        </h2>
 
-<section id="orders">
+                        <p>
 
-<div class="container">
+                            Activity
 
-<h2>
+                        </p>
 
-Recent Orders
+                    </div>
 
-</h2>
+                    <div class="card">
 
-<div class="activity-list">
+                        <h2>
 
-<div class="card">
+                            8
 
-<p>
+                        </h2>
 
-Gaming Laptop Purchased
+                        <p>
 
-</p>
+                            Requests
 
-</div>
+                        </p>
 
-<div class="card">
+                    </div>
 
-<p>
+                    <div class="card">
 
-Books Borrowed
+                        <h2>
 
-</p>
+                            5
 
-</div>
+                        </h2>
 
-</div>
+                        <p>
 
-</div>
+                            Completed
 
-</section>
+                        </p>
 
-<section id="requests">
+                    </div>
 
-<div class="container">
+                </div>
 
-<h2>
+            </div>
 
-Pending Requests
+        </section>
 
-</h2>
+    </main>
 
-<div class="activity-list">
+    <footer>
 
-<div class="card">
+        <div class="container">
 
-<p>
+            <p>
 
-Borrow Request — Camera
+                © 2026 TradeMart
 
-</p>
+            </p>
 
-</div>
+        </div>
 
-<div class="card">
+    </footer>
 
-<p>
-
-Purchase Request — Chair
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<div class="container">
-
-<h2>
-My Listings
-</h2>
-
-<div class="product-grid">
-
-<article class="product-card">
-
-<img
-src="assets/images/laptop.jpeg">
-
-<div class="product-content">
-
-<h3>
-Gaming Laptop
-</h3>
-
-<p>
-₹35,000
-</p>
-
-<a
-href="product.html"
-class="btn-primary product-btn">
-
-View
-
-</a>
-
-</div>
-
-</article>
-
-<article class="product-card">
-
-<img
-src="assets/images/books.jpeg">
-
-<div class="product-content">
-
-<h3>
-Books
-</h3>
-
-<p>
-₹800
-</p>
-
-<a
-href="product.html"
-class="btn-primary product-btn">
-
-View
-
-</a>
-
-</div>
-
-</article>
-
-</div>
-
-</div>
-
-</section>
-
-</main>
-
-<footer>
-
-<div class="container">
-
-<p>
-
-© 2026 TradeMart
-
-</p>
-
-</div>
-
-</footer>
-
-<script src="js/script.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 

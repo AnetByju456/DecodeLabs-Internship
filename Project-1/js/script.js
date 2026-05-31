@@ -1,45 +1,97 @@
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
-
-menuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-});
 
 
-const loginForm = document.getElementById("loginForm");
 
-if(loginForm){
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
 
-    loginForm.addEventListener("submit",(e)=>{
+if (loginForm) {
 
-        e.preventDefault();
+    loginForm.addEventListener(
+        "submit",
+        (e) => {
 
-        const email =
-        document.getElementById("loginEmail").value.trim();
+            e.preventDefault();
 
-        const password =
-        document.getElementById("loginPassword").value;
+            const email =
+                document
+                    .getElementById(
+                        "loginEmail"
+                    )
+                    .value
+                    .trim();
 
-        const emailRegex =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const password =
+                document
+                    .getElementById(
+                        "loginPassword"
+                    )
+                    .value;
 
-        if(!emailRegex.test(email)){
+            const selectedRole =
+                document.querySelector(
+                    'input[name="userRole"]:checked'
+                );
 
-            alert("Please enter a valid email address");
+            if (!selectedRole) {
 
-            return;
+                alert(
+                    "Please select Buyer or Seller"
+                );
+
+                return;
+
+            }
+
+            const role =
+                selectedRole.value;
+
+            const emailRegex =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (
+                !emailRegex.test(
+                    email
+                )
+            ) {
+
+                alert(
+                    "Enter valid email"
+                );
+
+                return;
+
+            }
+
+            if (
+                password.length < 8
+            ) {
+
+                alert(
+                    "Password minimum 8 characters"
+                );
+
+                return;
+
+            }
+
+            localStorage.setItem(
+                "userRole",
+                role
+            );
+
+            localStorage.setItem(
+                "userLoggedIn",
+                "true"
+            );
+
+            window.location.href =
+                "dashboard.html";
+
         }
 
-        if(password.length < 8){
-
-            alert("Password must contain at least 8 characters");
-
-            return;
-        }
-
-        alert("Login Successful (Frontend Demo)");
-
-    });
+    );
 
 }
 
@@ -57,12 +109,12 @@ toggleButtons.forEach(button => {
 
         const input = document.getElementById(targetId);
 
-        if(input.type === "password"){
+        if (input.type === "password") {
 
             input.type = "text";
             button.textContent = "Hide";
 
-        }else{
+        } else {
 
             input.type = "password";
             button.textContent = "Show";
@@ -78,49 +130,49 @@ toggleButtons.forEach(button => {
 
 const registerForm = document.getElementById("registerForm");
 
-if(registerForm){
+if (registerForm) {
 
-    registerForm.addEventListener("submit",(e)=>{
+    registerForm.addEventListener("submit", (e) => {
 
         e.preventDefault();
 
-        const name=document.getElementById("name").value.trim();
+        const name = document.getElementById("name").value.trim();
 
-        const phone=document.getElementById("phone").value.trim();
+        const phone = document.getElementById("phone").value.trim();
 
         const email = document.getElementById("email").value.trim();
 
         const emailRegex =
-                 /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        const password=document.getElementById("password").value;
+        const password = document.getElementById("password").value;
 
-        const confirmPassword=document.getElementById("confirmPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
         const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
-        if(name.length < 3){
+        if (name.length < 3) {
 
             alert("Name must contain at least 3 characters");
             return;
         }
 
 
-        if(!emailRegex.test(email)){
+        if (!emailRegex.test(email)) {
 
             alert("Please enter a valid email address");
 
-             return;
+            return;
         }
- 
-        if(!/^\d{10}$/.test(phone)){
+
+        if (!/^\d{10}$/.test(phone)) {
 
             alert("Enter a valid 10-digit phone number");
             return;
         }
 
-        if(!passwordRegex.test(password)){
+        if (!passwordRegex.test(password)) {
 
             alert(
                 "Password must contain 8 characters, one uppercase letter, one lowercase letter and one number."
@@ -129,14 +181,15 @@ if(registerForm){
             return;
         }
 
-        if(password !== confirmPassword){
+        if (password !== confirmPassword) {
 
             alert("Passwords do not match");
             return;
         }
 
-        alert("Registration Successful (Frontend Demo)");
+        alert("Registration Successful");
 
+        window.location.href = "login.html";
     });
 
 }
@@ -146,62 +199,68 @@ if(registerForm){
 ========================= */
 
 const searchInput =
-document.getElementById("searchInput");
+    document.getElementById("searchInput");
 
 const categoryFilter =
-document.getElementById("categoryFilter");
+    document.getElementById("categoryFilter");
 
 const filterButtons =
-document.querySelectorAll(".filter-btn");
+    document.querySelectorAll(".filter-btn");
 
 const productCards =
-document.querySelectorAll(".product-card");
+    document.querySelectorAll(".product-card");
 
 let currentType = "all";
 
 /* MAIN FILTER FUNCTION */
 
-function filterProducts(){
+
+function filterProducts() {
+
+    if (
+        !searchInput ||
+        !categoryFilter
+    ) return;
 
     const searchText =
-    searchInput.value.toLowerCase();
+        searchInput.value.toLowerCase();
 
     const selectedCategory =
-    categoryFilter.value;
+        categoryFilter.value;
 
-    productCards.forEach(card=>{
+    productCards.forEach(card => {
 
         const title =
-        card.querySelector("h3")
-        .textContent
-        .toLowerCase();
+            card.querySelector("h3")
+                .textContent
+                .toLowerCase();
 
         const category =
-        card.dataset.category;
+            card.dataset.category;
 
         const type =
-        card.dataset.type;
+            card.dataset.type;
 
         const matchesSearch =
-        title.includes(searchText);
+            title.includes(searchText);
 
         const matchesCategory =
-        selectedCategory === "all" ||
-        category === selectedCategory;
+            selectedCategory === "all" ||
+            category === selectedCategory;
 
         const matchesType =
-        currentType === "all" ||
-        type === currentType;
+            currentType === "all" ||
+            type === currentType;
 
-        if(
+        if (
             matchesSearch &&
             matchesCategory &&
             matchesType
-        ){
+        ) {
 
             card.style.display = "flex";
 
-        }else{
+        } else {
 
             card.style.display = "none";
         }
@@ -210,11 +269,14 @@ function filterProducts(){
 
 
     sortProducts();
+
+    // keep empty state visibility updated after filtering
+    updateEmptyState();
 }
 
 /* SEARCH */
 
-if(searchInput){
+if (searchInput) {
 
     searchInput.addEventListener(
         "input",
@@ -224,7 +286,7 @@ if(searchInput){
 
 /* CATEGORY */
 
-if(categoryFilter){
+if (categoryFilter) {
 
     categoryFilter.addEventListener(
         "change",
@@ -234,11 +296,11 @@ if(categoryFilter){
 
 /* TYPE FILTER */
 
-filterButtons.forEach(button=>{
+filterButtons.forEach(button => {
 
-    button.addEventListener("click",()=>{
+    button.addEventListener("click", () => {
 
-        filterButtons.forEach(btn=>{
+        filterButtons.forEach(btn => {
 
             btn.classList.remove(
                 "active-filter"
@@ -251,7 +313,7 @@ filterButtons.forEach(button=>{
         );
 
         currentType =
-        button.dataset.filter;
+            button.dataset.filter;
 
         filterProducts();
 
@@ -265,42 +327,45 @@ filterButtons.forEach(button=>{
 ========================= */
 
 const sortSelect =
-document.getElementById("sort");
+    document.getElementById("sort");
 
-function sortProducts(){
+function sortProducts() {
 
     const productGrid =
-    document.querySelector(".product-grid");
+        document.querySelector(".product-grid");
 
-    if(!productGrid) return;
+    if (!productGrid) return;
 
     const cards =
-    Array.from(
-        productGrid.querySelectorAll(".product-card")
-    );
+        Array.from(
+            productGrid.querySelectorAll(".product-card")
+        );
+
+    if (!sortSelect)
+        return;
 
     const sortValue =
-    sortSelect.value;
+        sortSelect.value;
 
-    if(sortValue === "low"){
+    if (sortValue === "low") {
 
-        cards.sort((a,b)=>
+        cards.sort((a, b) =>
             Number(a.dataset.price) -
             Number(b.dataset.price)
         );
 
     }
 
-    else if(sortValue === "high"){
+    else if (sortValue === "high") {
 
-        cards.sort((a,b)=>
+        cards.sort((a, b) =>
             Number(b.dataset.price) -
             Number(a.dataset.price)
         );
 
     }
 
-    cards.forEach(card=>{
+    cards.forEach(card => {
 
         productGrid.appendChild(card);
 
@@ -308,7 +373,7 @@ function sortProducts(){
 
 }
 
-if(sortSelect){
+if (sortSelect) {
 
     sortSelect.addEventListener(
         "change",
@@ -319,31 +384,51 @@ if(sortSelect){
 
 
 const themeToggle =
-document.getElementById(
-"themeToggle"
-);
+    document.getElementById(
+        "themeToggle"
+    );
 
-if(themeToggle){
+if (
+    localStorage.getItem(
+        "theme"
+    ) === "dark"
+) {
 
-themeToggle.addEventListener(
-"click",
-()=>{
-
-document.body.classList.toggle(
-"dark-theme"
-);
-
-themeToggle.textContent =
-document.body.classList.contains(
-"dark-theme"
-)
-
-? "☀️"
-: "🌙";
+    document.body.classList.add(
+        "dark-theme"
+    );
 
 }
 
-);
+if (themeToggle) {
+
+    themeToggle.addEventListener(
+        "click",
+        () => {
+
+            document.body.classList.toggle(
+                "dark-theme"
+            );
+
+            localStorage.setItem(
+
+                "theme",
+
+                document.body.classList.contains(
+                    "dark-theme"
+                )
+
+                    ?
+
+                    "dark"
+
+                    :
+
+                    "light"
+
+            );
+
+        });
 
 }
 
@@ -351,87 +436,313 @@ document.body.classList.contains(
 ACTIVE NAV
 ========================= */
 
-const currentPage =
-window.location.pathname
-.split("/")
-.pop();
+let currentPage = window.location.pathname.split("/").pop();
+if (!currentPage) currentPage = "index.html";
 
-document
-.querySelectorAll(
-".nav-links a"
-)
-.forEach(link=>{
-
-const href =
-link.getAttribute(
-"href"
-);
-
-if(href===currentPage){
-
-link.classList.add(
-"active"
-);
-
-}
-
+document.querySelectorAll(".nav-links a").forEach(link => {
+    const href = link.getAttribute("href");
+    if (href === currentPage) link.classList.add("active");
 });
 
 
 
-const visible =
+const emptyStateEl = document.getElementById("emptyState");
 
-Array.from(
-productCards
-)
+function updateEmptyState() {
+    if (!emptyStateEl) return;
+    const visible = Array.from(productCards).some(p => p.style.display !== "none");
+    emptyStateEl.style.display = visible ? "none" : "block";
+}
 
-.some(
-p=>
-p.style.display!=="none"
-);
-
-document
-.getElementById(
-"emptyState"
-)
-.style.display=
-
-visible
-? "none"
-: "block";
+updateEmptyState();
 
 
 
-/* ROLE FILTER */
+const sellerView =
+    document.getElementById(
+        "sellerView"
+    );
 
-const role =
-localStorage.getItem(
-"userRole"
-);
+const buyerView =
+    document.getElementById(
+        "buyerView"
+    );
 
-if(role){
+const dashboardTitle =
+    document.getElementById(
+        "dashboardTitle"
+    );
 
-const cards =
-document.querySelectorAll(
-".product-card"
-);
+const dashboardSubtitle =
+    document.getElementById(
+        "dashboardSubtitle"
+    );
 
-cards.forEach(card=>{
+if (
+    sellerView &&
+    buyerView
+) {
 
-const type =
-card.dataset.type;
+    const role =
+        localStorage.getItem(
+            "userRole"
+        );
 
-if(
-role==="seller"
-&&
-type==="borrow"
-){
+    /* SELLER */
 
-card.style.display=
-"none";
+    if (
+        role === "seller"
+    ) {
+
+        sellerView.style.display =
+            "block";
+
+        buyerView.style.display =
+            "none";
+
+        dashboardTitle.textContent =
+            "Welcome Seller";
+
+        dashboardSubtitle.textContent =
+            "Manage listings and requests.";
+
+    }
+
+    /* BUYER */
+
+    else if (
+        role === "buyer"
+    ) {
+
+        buyerView.style.display =
+            "block";
+
+        sellerView.style.display =
+            "none";
+
+        dashboardTitle.textContent =
+            "Welcome Buyer";
+
+        dashboardSubtitle.textContent =
+            "Browse products and manage orders.";
+
+    }
+
+    /* DEFAULT */
+
+    else {
+
+        buyerView.style.display =
+            "block";
+
+        sellerView.style.display =
+            "none";
+
+        dashboardTitle.textContent =
+            "Welcome";
+
+        dashboardSubtitle.textContent =
+            "Explore TradeMart.";
+
+    }
 
 }
 
-});
+const requestForm =
+    document.getElementById(
+        "requestForm"
+    );
+
+if (
+    requestForm
+) {
+
+    requestForm.addEventListener(
+        "submit",
+        (e) => {
+
+            e.preventDefault();
+
+            window.location.href =
+                "cart.html";
+
+        }
+
+    );
+
+}
+
+
+const checkoutForm =
+    document.getElementById(
+        "checkoutForm"
+    );
+
+if (
+    checkoutForm
+) {
+
+    checkoutForm.addEventListener(
+        "submit",
+        (e) => {
+
+            e.preventDefault();
+
+            alert(
+                "Order placed successfully!"
+            );
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+    );
+}
+
+
+document.addEventListener(
+    "gesturestart",
+    function (e) {
+
+        e.preventDefault();
+
+    }
+);
+
+
+/* =========================
+MENU
+========================= */
+
+const menuBtn =
+    document.getElementById(
+        "menuBtn"
+    );
+
+const navLinks =
+    document.getElementById(
+        "navLinks"
+    );
+
+if (
+    menuBtn &&
+    navLinks
+) {
+
+    let menuOpen =
+        false;
+
+    /* OPEN / CLOSE */
+
+    menuBtn.addEventListener(
+        "click",
+        (e) => {
+
+            e.stopPropagation();
+
+            menuOpen =
+                !menuOpen;
+
+            if (menuOpen) {
+
+                navLinks.classList.add(
+                    "active"
+                );
+
+            } else {
+
+                navLinks.classList.remove(
+                    "active"
+                );
+
+            }
+
+        });
+
+    /* CLICK OUTSIDE */
+
+    document.addEventListener(
+        "click",
+        (e) => {
+
+            if (
+
+                menuOpen &&
+
+                !navLinks.contains(
+                    e.target
+                )
+
+                &&
+
+                !menuBtn.contains(
+                    e.target
+                )
+
+            ) {
+
+                navLinks.classList.remove(
+                    "active"
+                );
+
+                menuOpen =
+                    false;
+
+            }
+
+        });
+
+    /* KEEP OPEN INSIDE */
+
+    navLinks.addEventListener(
+        "click",
+        (e) => {
+
+            e.stopPropagation();
+
+        });
+
+    /* CLOSE WHEN LINK CLICKED */
+
+    document
+        .querySelectorAll(
+            ".nav-links a"
+        )
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                () => {
+
+                    navLinks.classList.remove(
+                        "active"
+                    );
+
+                    menuOpen =
+                        false;
+
+                });
+
+        });
+
+    /* CLOSE ON SCROLL */
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (menuOpen) {
+
+                navLinks.classList.remove(
+                    "active"
+                );
+
+                menuOpen =
+                    false;
+
+            }
+
+        });
 
 }

@@ -1,43 +1,146 @@
 # TradeMart
 
-Frontend marketplace platform.
+TradeMart is a responsive frontend marketplace platform that allows users to buy, sell, borrow, and lend products through a unified experience.
 
-Features
+This project is developed as part of the internship project requirements and currently focuses on frontend implementation with future full-stack scalability in mind.
 
-- Buy
-- Sell
-- Borrow
-- Lend
+---
 
-Built With
+## Project Goal
+
+Create a modern, responsive marketplace platform where users can:
+
+- Buy products
+- Sell products
+- Borrow products
+- Lend products
+
+Users can choose their role and interact with the platform accordingly.
+
+---
+
+## Features
+
+### Authentication
+
+- Login Page
+- Registration Page
+- Form Validation
+- Password Visibility Toggle
+- Buyer / Seller Role Selection
+
+---
+
+### Marketplace
+
+- Product Listings
+- Category Filtering
+- Product Search
+- Product Sorting
+- Product Detail View
+
+---
+
+### User Experience
+
+- Responsive Design
+- Mobile Navigation
+- Theme Toggle
+- Profile Page
+- Dashboard
+
+---
+
+### Buyer Flow
+
+Marketplace
+
+→ Product
+
+→ Contact Seller
+
+→ Request Confirmation
+
+→ Cart
+
+→ Checkout
+
+→ Dashboard
+
+---
+
+### Seller Flow
+
+Login
+
+→ Dashboard
+
+→ Manage Listings
+
+→ View Requests
+
+---
+
+## Pages
+
+- Home
+- Login
+- Register
+- Marketplace
+- Product Details
+- Dashboard
+- Profile
+- Request Confirmation
+- Cart
+- Checkout
+
+---
+
+## Built With
+
+### Frontend
 
 - HTML5
 - CSS3
 - JavaScript
 
-Pages
+### Development
 
-- Home
-- Marketplace
-- Product Details
-- Dashboard
-- Profile
+- VS Code
+- Git
+- GitHub
 
-Responsive
+### Design / Planning
 
-- Mobile
-- Tablet
-- Desktop
+- Documented in design/wireframe-notes.md
+- Screenshots available inside design folder.
 
-Accessibility
+### Testing
 
-- Semantic HTML
-- Labels
-- Focus states
+- Chrome DevTools
+- Responsive Testing
 
-Future Scope
+---
 
-Backend
-Authentication
-Payments
-Chat
+## Folder Structure
+
+```text
+TradeMart
+│
+├── assets
+│   └── images
+│
+├── css
+│   └── style.css
+│
+├── js
+│   └── script.js
+│
+├── design
+│   └── wireframe-notes.md
+│
+├── screenshots
+│
+├── *.html
+│
+└── README.md
