@@ -30,6 +30,12 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   const { name, category, price, type } = req.body;
 
+  if (!name || !category || !price || !type) {
+    return res.status(400).json({
+      message: "All fields are required"
+    });
+  }
+
   const newProduct = {
     id: products.length + 1,
     name,
