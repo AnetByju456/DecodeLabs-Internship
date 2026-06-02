@@ -86,4 +86,26 @@ router.put("/:id", (req, res) => {
   });
 });
 
+
+// DELETE product by ID
+router.delete("/:id", (req, res) => {
+  const productId = parseInt(req.params.id);
+
+  const productIndex = products.findIndex(
+    (item) => item.id === productId
+  );
+
+  if (productIndex === -1) {
+    return res.status(404).json({
+      message: "Product not found"
+    });
+  }
+
+  products.splice(productIndex, 1);
+
+  res.status(200).json({
+    message: "Product deleted successfully"
+  });
+});
+
 module.exports = router;
