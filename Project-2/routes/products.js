@@ -25,4 +25,25 @@ router.get("/:id", (req, res) => {
   res.status(200).json(product);
 });
 
+
+// POST new product
+router.post("/", (req, res) => {
+  const { name, category, price, type } = req.body;
+
+  const newProduct = {
+    id: products.length + 1,
+    name,
+    category,
+    price,
+    type
+  };
+
+  products.push(newProduct);
+
+  res.status(201).json({
+    message: "Product added successfully",
+    product: newProduct
+  });
+});
+
 module.exports = router;
