@@ -52,4 +52,38 @@ router.post("/", (req, res) => {
   });
 });
 
+
+// UPDATE product by ID
+router.put("/:id", (req, res) => {
+  const productId = parseInt(req.params.id);
+
+  const product = products.find(
+    (item) => item.id === productId
+  );
+
+  if (!product) {
+    return res.status(404).json({
+      message: "Product not found"
+    });
+  }
+
+  const { name, category, price, type } = req.body;
+
+  if (!name || !category || !price || !type) {
+    return res.status(400).json({
+      message: "All fields are required"
+    });
+  }
+
+  product.name = name;
+  product.category = category;
+  product.price = price;
+  product.type = type;
+
+  res.status(200).json({
+    message: "Product updated successfully",
+    product
+  });
+});
+
 module.exports = router;
