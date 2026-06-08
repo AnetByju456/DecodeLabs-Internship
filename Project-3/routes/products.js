@@ -1,11 +1,19 @@
 const express = require("express");
 const router = express.Router();
 
-const products = require("../data/products");
-
-// GET all products
+const connection = require("../config/db");
 router.get("/", (req, res) => {
-  res.status(200).json(products);
+  const query = "SELECT * FROM products";
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
+
+    res.status(200).json(results);
+  });
 });
 
 // GET single product by ID
