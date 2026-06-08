@@ -115,24 +115,28 @@ router.put("/:id", (req, res) => {
 });
 
 
-// DELETE product by ID
+// DELETE product
 router.delete("/:id", (req, res) => {
-  const productId = parseInt(req.params.id);
+  const productId = req.params.id;
 
-  const productIndex = products.findIndex(
-    (item) => item.id === productId
-  );
+  const query = "DELETE FROM products WHERE id = ?";
 
-  if (productIndex === -1) {
-    return res.status(404).json({
-      message: "Product not found"
+  connection.query(query, [productId], (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: "Product not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Product deleted successfully",
     });
-  }
-
-  products.splice(productIndex, 1);
-
-  res.status(200).json({
-    message: "Product deleted successfully"
   });
 });
 
