@@ -42,32 +42,36 @@ router.get("/:id", (req, res) => {
 
 
 
-// POST new product
+// CREATE product
 router.post("/", (req, res) => {
   const { name, category, price, type } = req.body;
 
   if (!name || !category || !price || !type) {
     return res.status(400).json({
-      message: "All fields are required"
+      message: "All fields are required",
     });
   }
 
-  const newProduct = {
-    id: products.length + 1,
-    name,
-    category,
-    price,
-    type
-  };
+  const query =
+    "INSERT INTO products (name, category, price, type) VALUES (?, ?, ?, ?)";
 
-  products.push(newProduct);
+  connection.query(
+    query,
+    [name, category, price, type],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          message: "Database error",
+        });
+      }
 
-  res.status(201).json({
-    message: "Product added successfully",
-    product: newProduct
-  });
+      res.status(201).json({
+        message: "Product added successfully",
+        productId: result.insertId,
+      });
+    }
+  );
 });
-
 
 // UPDATE product by ID
 router.put("/:id", (req, res) => {
