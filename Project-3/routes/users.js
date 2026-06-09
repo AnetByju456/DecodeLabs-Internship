@@ -174,4 +174,74 @@ router.delete("/:id", (req, res) => {
   });
 });
 
+
+//USER PRODUCTS
+router.get("/:id/products", (req, res) => {
+  const userId = req.params.id;
+
+  const query = `
+    SELECT *
+    FROM products
+    WHERE user_id = ?
+  `;
+
+  connection.query(query, [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Database error"
+      });
+    }
+
+    res.status(200).json(results);
+  });
+});
+
+//USER ORDERS
+router.get("/:id/orders", (req, res) => {
+  const userId = req.params.id;
+
+  const query = `
+    SELECT *
+    FROM orders
+    WHERE user_id = ?
+  `;
+
+  connection.query(query, [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Database error"
+      });
+    }
+
+    res.status(200).json(results);
+  });
+});
+
+//USER CART
+router.get("/:id/cart", (req, res) => {
+  const userId = req.params.id;
+
+  const query = `
+    SELECT *
+    FROM carts
+    WHERE user_id = ?
+  `;
+
+  connection.query(query, [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Database error"
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        message: "Cart not found"
+      });
+    }
+
+    res.status(200).json(results[0]);
+  });
+});
+
 module.exports = router;
