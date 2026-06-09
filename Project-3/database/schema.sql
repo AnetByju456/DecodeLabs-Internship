@@ -2,9 +2,6 @@ CREATE DATABASE IF NOT EXISTS trademart;
 
 USE trademart;
 
-CREATE DATABASE IF NOT EXISTS trademart;
-
-USE trademart;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
