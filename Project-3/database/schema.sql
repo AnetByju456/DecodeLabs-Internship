@@ -20,3 +20,24 @@ CREATE TABLE users (
     role ENUM('buyer', 'seller') DEFAULT 'buyer',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+USE trademart;
+
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    user_id INT NOT NULL,
+
+    total_amount DECIMAL(10,2) NOT NULL,
+
+    status ENUM(
+        'pending',
+        'completed',
+        'cancelled'
+    ) DEFAULT 'pending',
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+);
