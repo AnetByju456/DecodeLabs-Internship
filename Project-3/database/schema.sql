@@ -62,3 +62,17 @@ CREATE TABLE order_items (
     FOREIGN KEY (product_id)
     REFERENCES products(id)
 );
+
+USE trademart;
+
+CREATE TABLE carts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    user_id INT NOT NULL UNIQUE,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
+);
