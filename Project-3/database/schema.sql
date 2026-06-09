@@ -11,8 +11,12 @@ CREATE TABLE IF NOT EXISTS products (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO products (name, category, price, type)
-VALUES
-('Laptop', 'Electronics', 30000, 'Sell'),
-('Book', 'Books', 500, 'Sell'),
-('Phone', 'Electronics', 25000, 'Sell');
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    password VARCHAR(255) NOT NULL,
+    role ENUM('buyer', 'seller') DEFAULT 'buyer',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
