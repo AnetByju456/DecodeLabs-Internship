@@ -1,64 +1,128 @@
-# TradeMart Backend API
+# TradeMart Backend API - Project 3
 
 ## Overview
 
-TradeMart Backend API is a RESTful backend service developed as part of DecodeLabs Full Stack Development Project 2.
+TradeMart Backend API is a Node.js and Express.js application that provides CRUD operations for marketplace products.
 
-The project demonstrates backend fundamentals including API development, request handling, JSON responses, data validation, HTTP status codes, and CRUD operations using Node.js and Express.js.
+This project demonstrates database integration using MySQL, allowing product data to be stored permanently and managed through RESTful API endpoints.
 
-This API serves as the backend foundation for the TradeMart marketplace platform where users can buy, sell, borrow, and lend products.
+Developed as part of the DecodeLabs Full Stack Development Internship - Project 3 (Database Integration).
 
 ---
 
-## Features
+## Project Objective
 
-* Retrieve all products
-* Retrieve a product by ID
-* Add new products
-* Update existing products
-* Delete products
-* Validate user input
-* Return appropriate HTTP status codes
-* JSON-based request and response handling
+The goal of this project is to:
+
+- Connect a backend application to a MySQL database
+- Design a database schema
+- Perform CRUD operations
+- Ensure proper data handling and validation
+- Store and retrieve data permanently
 
 ---
 
 ## Tech Stack
 
-* Node.js
-* Express.js
-* JavaScript
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- MySQL
+
+### Packages Used
+- express
+- mysql2
+- dotenv
+
+### API Testing
+- Postman
 
 ---
 
 ## Project Structure
 
-```text
-Project-2
+
+Project-3/
 │
-├── data
+├── config/
+│   └── db.js
+│
+├── routes/
 │   └── products.js
 │
-├── routes
-│   └── products.js
+├── database/
+│   └── schema.sql
 │
-├── server.js
-├── README.md
+├── .env
 ├── package.json
-└── package-lock.json
+├── package-lock.json
+├── server.js
+└── README.md
+
+
+---
+
+## Database Schema
+
+### Products Table
+
+| Column | Type |
+|----------|----------|
+| id | INT (Primary Key, Auto Increment) |
+| name | VARCHAR(100) |
+| category | VARCHAR(100) |
+| price | DECIMAL(10,2) |
+| type | VARCHAR(50) |
+| created_at | TIMESTAMP |
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=trademart_db
 ```
 
 ---
 
 ## Installation
 
-Clone the repository and install dependencies:
+### Clone Repository
+
+```bash
+git clone <repository-url>
+```
+
+### Navigate to Project
+
+```bash
+cd Project-3
+```
+
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-Start the server:
+### Create Database
+
+Run the SQL script:
+
+```sql
+source database/schema.sql;
+```
+
+Or execute the contents of `schema.sql` using MySQL Workbench.
+
+### Start Server
 
 ```bash
 node server.js
@@ -80,35 +144,11 @@ http://localhost:3000
 GET /products
 ```
 
-Response:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Laptop",
-    "category": "Electronics",
-    "price": 25000,
-    "type": "Sell"
-  }
-]
-```
-
----
-
 ### Get Product By ID
 
 ```http
 GET /products/:id
 ```
-
-Example:
-
-```http
-GET /products/1
-```
-
----
 
 ### Create Product
 
@@ -120,14 +160,12 @@ Request Body:
 
 ```json
 {
-  "name": "Office Chair",
-  "category": "Furniture",
-  "price": 1200,
+  "name": "Laptop",
+  "category": "Electronics",
+  "price": 30000,
   "type": "Sell"
 }
 ```
-
----
 
 ### Update Product
 
@@ -141,12 +179,10 @@ Request Body:
 {
   "name": "Gaming Laptop",
   "category": "Electronics",
-  "price": 45000,
+  "price": 50000,
   "type": "Sell"
 }
 ```
-
----
 
 ### Delete Product
 
@@ -154,63 +190,43 @@ Request Body:
 DELETE /products/:id
 ```
 
-Example:
+---
 
-```http
-DELETE /products/2
-```
+## Features
+
+- MySQL database integration
+- Persistent data storage
+- RESTful API design
+- Create, Read, Update and Delete operations
+- Input validation
+- Error handling
+- Environment variable configuration
 
 ---
 
-## Validation
+## Learning Outcomes
 
-The API validates incoming product data.
+Through this project, the following concepts were practiced:
 
-Required fields:
-
-* name
-* category
-* price
-* type
-
-If any required field is missing, the API returns:
-
-```http
-400 Bad Request
-```
+- Database schema design
+- MySQL integration with Node.js
+- SQL queries
+- CRUD operations
+- REST APIs
+- Backend architecture
+- Data persistence
 
 ---
 
-## HTTP Status Codes
+## Internship Milestone
 
-| Status Code | Description           |
-| ----------- | --------------------- |
-| 200         | OK                    |
-| 201         | Created               |
-| 400         | Bad Request           |
-| 404         | Not Found             |
-| 500         | Internal Server Error |
+DecodeLabs Full Stack Development Internship
 
----
+**Project 3: Database Integration**
 
-## Testing
+Focus Areas:
 
-The API can be tested using:
-
-* Postman
-* Thunder Client
-* Browser (GET endpoints)
-
----
-
-## Future Improvements
-
-* Database integration (MongoDB/MySQL)
-* Authentication and authorization
-* Product search and filtering
-* Frontend integration with TradeMart
-* Persistent data storage
-
----
-
-
+- Databases
+- CRUD Operations
+- Data Storage
+- Backend Development
