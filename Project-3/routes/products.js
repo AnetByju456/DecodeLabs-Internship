@@ -44,20 +44,41 @@ router.get("/:id", (req, res) => {
 
 // CREATE product
 router.post("/", (req, res) => {
-  const { name, category, price, type, user_id } = req.body; 
+  const {
+    name,
+    category,
+    price,
+    type,
+    user_id
+  } = req.body;
 
-  if (!name || !category || !price || !type || !user_id) {
+  if (
+    !name ||
+    !category ||
+    !price ||
+    !type ||
+    !user_id
+  ) {
     return res.status(400).json({
       message: "All fields are required",
     });
   }
 
-  const query =
-    "INSERT INTO products (name, category, price, type,user_id) VALUES (?, ?, ?, ?, ?)";
+  const query = `
+    INSERT INTO products
+    (name, category, price, type, user_id)
+    VALUES (?, ?, ?, ?, ?)
+  `;
 
   connection.query(
     query,
-    [name, category, price, type, user_id],
+    [
+      name,
+      category,
+      price,
+      type,
+      user_id
+    ],
     (err, result) => {
       if (err) {
         return res.status(500).json({
