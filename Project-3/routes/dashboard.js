@@ -1,0 +1,87 @@
+const express = require("express");
+const router = express.Router();
+const connection = require("../config/db");
+
+router.get("/:userId", (req, res) => {
+  const userId = req.params.userId;
+
+  const dashboardData = {};
+
+  // Get user details
+  connection.query(
+    "SELECT id, name, email, phone, role, created_at FROM users WHERE id = ?",
+    [userId],
+    (err, userResults) => {
+      if (err) {
+        return res.status(500).json({
+          message: "Database error",
+        });
+      }
+
+      if (userResults.length === 0) {
+        return res.status(404).json({
+          message: "User not found",
+        });
+      }
+
+      dashboardData.user = userResults[0];
+
+      // Get user's products
+      connection.query(
+        "SELECT * FROM products WHERE user_id = ?",
+        [userId],
+        (err, productResults) => {
+          if (err) {
+            return res.status(500).json({
+              message: "Database error",
+            });
+          }
+
+          dashboardData.products = productResults;
+          dashboardData.productCount = productResults.length;
+
+          // Get user's orders
+          connection.query(
+            "SELECT * FROM orders WHERE user_id = ?",
+            [userId],
+            (err, orderResults) => {
+              if (err) {
+                return res.status(500).json({
+                  message: "Database error",
+                });
+              }
+
+              dashboardData.orders = orderResults;
+              dashboardData.orderCount = orderResults.length;
+
+              // Get activity logs
+              connection.query(
+                `
+                SELECT *
+                FROM activity_logs
+                WHERE user_id = ?
+                ORDER BY created_at DESC
+                LIMIT 10
+                `,
+                [userId],
+                (err, activityResults) => {
+                  if (err) {
+                    return res.status(500).json({
+                      message: "Database error",
+                    });
+                  }
+
+                  dashboardData.activities = activityResults;
+
+                  res.status(200).json(dashboardData);
+                }
+              );
+            }
+          );
+        }
+      );
+    }
+  );
+});
+
+module.exports = router;
