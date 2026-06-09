@@ -4,10 +4,24 @@ const connection = require("../config/db");
 
 
 // GET all products
+// GET all products with optional filters
 router.get("/", (req, res) => {
-  const query = "SELECT * FROM products";
+  const { category, type } = req.query;
 
-  connection.query(query, (err, results) => {
+  let query = "SELECT * FROM products WHERE 1=1";
+  let values = [];
+
+  if (category) {
+    query += " AND category = ?";
+    values.push(category);
+  }
+
+  if (type) {
+    query += " AND type = ?";
+    values.push(type);
+  }
+
+  connection.query(query, values, (err, results) => {
     if (err) {
       return res.status(500).json({
         message: "Database error",
