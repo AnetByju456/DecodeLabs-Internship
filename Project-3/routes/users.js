@@ -80,4 +80,74 @@ router.post("/login", (req, res) => {
   );
 });
 
+// GET USER BY ID
+router.get("/:id", (req, res) => {
+  const userId = req.params.id;
+
+  const query = `
+    SELECT id, name, email, phone, role, created_at
+    FROM users
+    WHERE id = ?
+  `;
+
+  connection.query(query, [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Database error"
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        message: "User not found"
+      });
+    }
+
+    res.status(200).json(results[0]);
+  });
+});
+
+
+// UPDATE USER
+router.put("/:id", (req, res) => {
+  const userId = req.params.id;
+
+  const { name, email, phone, role } = req.body;
+
+  if (!name || !email) {
+    return res.status(400).json({
+      message: "Name and email are required"
+    });
+  }
+
+  const query = `
+    UPDATE users
+    SET name = ?, email = ?, phone = ?, role = ?
+    WHERE id = ?
+  `;
+
+  connection.query(
+    query,
+    [name, email, phone, role, userId],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          message: "Database error"
+        });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({
+          message: "User not found"
+        });
+      }
+
+      res.status(200).json({
+        message: "User updated successfully"
+      });
+    }
+  );
+});
+
+
 module.exports = router;
