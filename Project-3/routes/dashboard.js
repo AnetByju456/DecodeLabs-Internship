@@ -38,7 +38,6 @@ router.get("/:userId", (req, res) => {
           }
 
           dashboardData.products = productResults;
-          dashboardData.productCount = productResults.length;
 
           // Get user's orders
           connection.query(
@@ -52,7 +51,6 @@ router.get("/:userId", (req, res) => {
               }
 
               dashboardData.orders = orderResults;
-              dashboardData.orderCount = orderResults.length;
 
               // Get activity logs
               connection.query(
@@ -72,6 +70,13 @@ router.get("/:userId", (req, res) => {
                   }
 
                   dashboardData.activities = activityResults;
+
+                  // Dashboard statistics
+                  dashboardData.stats = {
+                    totalProducts: productResults.length,
+                    totalOrders: orderResults.length,
+                    totalActivities: activityResults.length,
+                  };
 
                   res.status(200).json(dashboardData);
                 }
