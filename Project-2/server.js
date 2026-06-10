@@ -7,12 +7,14 @@ app.use(express.json());
 const PORT = 3000;
 
 const productsRoute = require("./routes/products");
+const userRoutes = require("./routes/users");
 
 app.get("/", (req, res) => {
   res.send("TradeMart Backend API is running!");
 });
 
 app.use("/products", productsRoute);
+app.use("/users", userRoutes);
 
 // Global error handler
 app.use((err, req, res, next) => {
