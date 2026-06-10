@@ -26,6 +26,28 @@ router.get("/", (req, res) => {
 });
 
 
+// GET orders by user
+router.get("/user/:userId", (req, res) => {
+  const userId = req.params.userId;
+
+  const query = `
+    SELECT *
+    FROM orders
+    WHERE user_id = ?
+    ORDER BY created_at DESC
+  `;
+
+  connection.query(query, [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
+
+    res.status(200).json(results);
+  });
+});
+
 // GET single order
 router.get("/:id", (req, res) => {
   const orderId = req.params.id;
