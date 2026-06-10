@@ -2,163 +2,227 @@
 
 ## Overview
 
-TradeMart Backend API is a RESTful backend service developed as part of DecodeLabs Full Stack Development Project 2.
+TradeMart Backend API is a RESTful backend service developed as part of the DecodeLabs Full Stack Development Internship Project 2.
 
-The project demonstrates backend fundamentals including API development, request handling, JSON responses, data validation, HTTP status codes, and CRUD operations using Node.js and Express.js.
+The project demonstrates backend development using Node.js and Express.js, starting from basic CRUD APIs and evolving into a full marketplace backend simulation with users, cart system, order processing, activity logging, and a unified dashboard API.
 
-This API serves as the backend foundation for the TradeMart marketplace platform where users can buy, sell, borrow, and lend products.
+This backend serves as the foundation for the TradeMart marketplace platform where users can buy, sell, and manage products through a role-based system.
 
 ---
 
 ## Features
 
-* Retrieve all products
-* Retrieve a product by ID
-* Add new products
-* Update existing products
-* Delete products
-* Validate user input
-* Return appropriate HTTP status codes
-* JSON-based request and response handling
+### Core Features
+- Product CRUD operations
+- User registration and login system
+- Cart management system
+- Order processing with checkout flow
+- Activity logging system
+- Unified dashboard API
+
+### Advanced Backend Features
+- In-memory relational data simulation
+- Cart to order conversion flow
+- Order status management
+- Activity tracking for user actions
+- Modular route structure
 
 ---
 
 ## Tech Stack
 
-* Node.js
-* Express.js
-* JavaScript
+- Node.js
+- Express.js
+- JavaScript
 
 ---
 
 ## Project Structure
 
-```text
 Project-2
 │
 ├── data
-│   └── products.js
+│   ├── products.js
+│   ├── users.js
+│   ├── carts.js
+│   ├── cartItems.js
+│   ├── orders.js
+│   ├── orderItems.js
+│   ├── activityLogs.js
 │
 ├── routes
-│   └── products.js
+│   ├── products.js
+│   ├── users.js
+│   ├── carts.js
+│   ├── orders.js
+│   ├── activity.js
+│   ├── dashboard.js
 │
 ├── server.js
-├── README.md
 ├── package.json
 └── package-lock.json
-```
 
 ---
 
 ## Installation
 
-Clone the repository and install dependencies:
+Clone the repository:
 
-```bash
+git clone <repo-url>
+
+Install dependencies:
+
 npm install
-```
 
 Start the server:
 
-```bash
 node server.js
-```
 
-Server runs on:
+Or using nodemon:
 
-```text
+nodemon server.js
+
+Server runs at:
+
 http://localhost:3000
-```
 
 ---
 
 ## API Endpoints
 
-### Get All Products
+---
 
-```http
+## Products
+
 GET /products
-```
-
-Response:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Laptop",
-    "category": "Electronics",
-    "price": 25000,
-    "type": "Sell"
-  }
-]
-```
-
----
-
-### Get Product By ID
-
-```http
 GET /products/:id
-```
-
-Example:
-
-```http
-GET /products/1
-```
-
----
-
-### Create Product
-
-```http
 POST /products
-```
-
-Request Body:
-
-```json
-{
-  "name": "Office Chair",
-  "category": "Furniture",
-  "price": 1200,
-  "type": "Sell"
-}
-```
-
----
-
-### Update Product
-
-```http
 PUT /products/:id
-```
+DELETE /products/:id
 
-Request Body:
-
-```json
-{
-  "name": "Gaming Laptop",
-  "category": "Electronics",
-  "price": 45000,
-  "type": "Sell"
-}
-```
+Filtering (optional):
+GET /products?category=Electronics
+GET /products?type=Sell
 
 ---
 
-### Delete Product
+## Users
 
-```http
-DELETE /products/:id
-```
+POST /users/register
+POST /users/login
+GET /users
+GET /users/:id
+PUT /users/:id
+DELETE /users/:id
 
-Example:
+---
 
-```http
-DELETE /products/2
-```
+## Cart
+
+GET /cart/:userId
+POST /cart/add
+PUT /cart/item/:id
+DELETE /cart/item/:id
+DELETE /cart/clear/:userId
+
+---
+
+## Orders
+
+GET /orders
+GET /orders/:id
+GET /orders/user/:userId
+POST /orders/checkout
+PUT /orders/:id
+DELETE /orders/:id
+
+Order Status Values:
+- Placed
+- Shipped
+- Delivered
+- Cancelled
+
+---
+
+## Activity Logs
+
+GET /activity
+GET /activity/user/:userId
+POST /activity
+DELETE /activity/:id
+
+---
+
+## Dashboard API
+
+GET /dashboard/:userId
+
+Returns:
+- User details
+- Cart summary
+- Orders history
+- Recent activity
+- User statistics
+
+---
+
+## Data Models
+
+User:
+{
+  id,
+  name,
+  email,
+  phone,
+  password,
+  role
+}
+
+Product:
+{
+  id,
+  name,
+  category,
+  price,
+  type,
+  sellerId
+}
+
+Cart Item:
+{
+  id,
+  cartId,
+  productId,
+  quantity
+}
+
+Order:
+{
+  id,
+  userId,
+  totalAmount,
+  status,
+  createdAt
+}
+
+Activity Log:
+{
+  id,
+  userId,
+  action,
+  timestamp
+}
+
+---
+
+## HTTP Status Codes
+
+200 - OK  
+201 - Created  
+400 - Bad Request  
+401 - Unauthorized  
+404 - Not Found  
+500 - Internal Server Error  
 
 ---
 
@@ -167,50 +231,47 @@ DELETE /products/2
 The API validates incoming product data.
 
 Required fields:
+- name
+- category
+- price
+- type
 
-* name
-* category
-* price
-* type
-
-If any required field is missing, the API returns:
-
-```http
+If any required field is missing:
 400 Bad Request
-```
-
----
-
-## HTTP Status Codes
-
-| Status Code | Description           |
-| ----------- | --------------------- |
-| 200         | OK                    |
-| 201         | Created               |
-| 400         | Bad Request           |
-| 404         | Not Found             |
-| 500         | Internal Server Error |
 
 ---
 
 ## Testing
 
-The API can be tested using:
-
-* Postman
-* Thunder Client
-* Browser (GET endpoints)
+API can be tested using:
+- Postman
+- Thunder Client
+- Browser (GET endpoints)
 
 ---
 
 ## Future Improvements
 
-* Database integration (MongoDB/MySQL)
-* Authentication and authorization
-* Product search and filtering
-* Frontend integration with TradeMart
-* Persistent data storage
+- MySQL database integration (Project 3)
+- Authentication middleware (JWT-based system)
+- Role-based access control
+- Product search and filtering improvements
+- Frontend integration with TradeMart
+- Persistent storage instead of in-memory arrays
 
 ---
+
+## Project Status
+
+Completed:
+- Product API system
+- User management system
+- Cart system
+- Order system with checkout flow
+- Activity logging system
+- Dashboard aggregation API
+
+Next Phase:
+- Database migration to MySQL (Project 3)
 
 
