@@ -10,6 +10,7 @@ const productsRoute = require("./routes/products");
 const userRoutes = require("./routes/users");
 const cartRoutes = require("./routes/carts");
 const orderRoutes = require("./routes/orders");
+const activityRoutes = require("./routes/activity");
 
 app.get("/", (req, res) => {
   res.send("TradeMart Backend API is running!");
@@ -19,6 +20,7 @@ app.use("/products", productsRoute);
 app.use("/users", userRoutes);
 app.use("/cart", cartRoutes);
 app.use("/orders", orderRoutes);
+app.use("/activity", activityRoutes);
 
 // Global error handler
 app.use((err, req, res, next) => {
