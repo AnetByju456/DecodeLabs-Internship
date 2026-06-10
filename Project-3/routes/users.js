@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../config/db");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 
 // REGISTER USER
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
   const { name, email, phone, password, role } = req.body;
 
   if (!name || !email || !password) {
@@ -12,34 +15,42 @@ router.post("/register", (req, res) => {
     });
   }
 
-  const query = `
-    INSERT INTO users
-    (name, email, phone, password, role)
-    VALUES (?, ?, ?, ?, ?)
-  `;
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-  connection.query(
-    query,
-    [
-      name,
-      email,
-      phone,
-      password,
-      role || "buyer"
-    ],
-    (err, result) => {
-      if (err) {
-        return res.status(500).json({
-          message: "Database error"
+    const query = `
+      INSERT INTO users
+      (name, email, phone, password, role)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+
+    connection.query(
+      query,
+      [
+        name,
+        email,
+        phone,
+        hashedPassword,
+        role || "buyer"
+      ],
+      (err, result) => {
+        if (err) {
+          return res.status(500).json({
+            message: "Database error"
+          });
+        }
+
+        res.status(201).json({
+          message: "User registered successfully",
+          userId: result.insertId
         });
       }
-
-      res.status(201).json({
-        message: "User registered successfully",
-        userId: result.insertId
-      });
-    }
-  );
+    );
+  } catch (error) {
+    res.status(500).json({
+      message: "Server error"
+    });
+  }
 });
 
 
@@ -54,12 +65,12 @@ router.post("/login", (req, res) => {
   }
 
   const query =
-    "SELECT * FROM users WHERE email = ? AND password = ?";
+    "SELECT * FROM users WHERE email = ?";
 
   connection.query(
     query,
-    [email, password],
-    (err, results) => {
+    [email],
+    async (err, results) => {
       if (err) {
         return res.status(500).json({
           message: "Database error"
@@ -72,13 +83,45 @@ router.post("/login", (req, res) => {
         });
       }
 
+      const user = results[0];
+
+      const passwordMatch = await bcrypt.compare(
+        password,
+        user.password
+      );
+
+      if (!passwordMatch) {
+        return res.status(401).json({
+          message: "Invalid credentials"
+        });
+      }
+
+      const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          role: user.role
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "1h"
+        }
+      );
+
       res.status(200).json({
         message: "Login successful",
-        user: results[0]
+        token,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role
+        }
       });
     }
   );
 });
+
 
 // GET USER BY ID
 router.get("/:id", (req, res) => {
@@ -149,7 +192,8 @@ router.put("/:id", (req, res) => {
   );
 });
 
-//DELETE USER
+
+// DELETE USER
 router.delete("/:id", (req, res) => {
   const userId = req.params.id;
 
@@ -158,90 +202,86 @@ router.delete("/:id", (req, res) => {
   connection.query(query, [userId], (err, result) => {
     if (err) {
       return res.status(500).json({
-        message: "Database error",
+        message: "Database error"
       });
     }
 
     if (result.affectedRows === 0) {
       return res.status(404).json({
-        message: "User not found",
+        message: "User not found"
       });
     }
 
     res.status(200).json({
-      message: "User deleted successfully",
+      message: "User deleted successfully"
     });
   });
 });
 
 
-//USER PRODUCTS
+// USER PRODUCTS
 router.get("/:id/products", (req, res) => {
   const userId = req.params.id;
 
-  const query = `
-    SELECT *
-    FROM products
-    WHERE user_id = ?
-  `;
+  connection.query(
+    "SELECT * FROM products WHERE user_id = ?",
+    [userId],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({
+          message: "Database error"
+        });
+      }
 
-  connection.query(query, [userId], (err, results) => {
-    if (err) {
-      return res.status(500).json({
-        message: "Database error"
-      });
+      res.status(200).json(results);
     }
-
-    res.status(200).json(results);
-  });
+  );
 });
 
-//USER ORDERS
+
+// USER ORDERS
 router.get("/:id/orders", (req, res) => {
   const userId = req.params.id;
 
-  const query = `
-    SELECT *
-    FROM orders
-    WHERE user_id = ?
-  `;
+  connection.query(
+    "SELECT * FROM orders WHERE user_id = ?",
+    [userId],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({
+          message: "Database error"
+        });
+      }
 
-  connection.query(query, [userId], (err, results) => {
-    if (err) {
-      return res.status(500).json({
-        message: "Database error"
-      });
+      res.status(200).json(results);
     }
-
-    res.status(200).json(results);
-  });
+  );
 });
 
-//USER CART
+
+// USER CART
 router.get("/:id/cart", (req, res) => {
   const userId = req.params.id;
 
-  const query = `
-    SELECT *
-    FROM carts
-    WHERE user_id = ?
-  `;
+  connection.query(
+    "SELECT * FROM carts WHERE user_id = ?",
+    [userId],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({
+          message: "Database error"
+        });
+      }
 
-  connection.query(query, [userId], (err, results) => {
-    if (err) {
-      return res.status(500).json({
-        message: "Database error"
-      });
+      if (results.length === 0) {
+        return res.status(404).json({
+          message: "Cart not found"
+        });
+      }
+
+      res.status(200).json(results[0]);
     }
-
-    if (results.length === 0) {
-      return res.status(404).json({
-        message: "Cart not found"
-      });
-    }
-
-    res.status(200).json(results[0]);
-  });
+  );
 });
 
 module.exports = router;
