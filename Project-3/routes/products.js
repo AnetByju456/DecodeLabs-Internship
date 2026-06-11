@@ -99,7 +99,7 @@ router.post("/", authenticateToken, (req, res) => {
 
 
 // UPDATE product
-router.put("/:id", (req, res) => {
+router.put("/:id", authenticateToken, (req, res) => {
   const productId = req.params.id;
 
   const { name, category, price, type } = req.body;
@@ -127,7 +127,11 @@ router.put("/:id", (req, res) => {
       }
 
       const product = productResults[0];
-
+      if (product.user_id !== req.user.id) {
+        return res.status(403).json({
+          message: "You can only update your own products"
+        });
+      }
       const query = `
         UPDATE products
         SET name = ?, category = ?, price = ?, type = ?
@@ -160,7 +164,7 @@ router.put("/:id", (req, res) => {
 
 
 // DELETE product
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authenticateToken, (req, res) => {
   const productId = req.params.id;
 
   connection.query(
@@ -187,7 +191,11 @@ router.delete("/:id", (req, res) => {
       }
 
       const product = productResults[0];
-
+      if (product.user_id !== req.user.id) {
+        return res.status(403).json({
+          message: "You can only delete your own products"
+        });
+      }
       connection.query(
         "DELETE FROM products WHERE id = ?",
         [productId],
