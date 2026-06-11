@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../config/db");
-
+const authenticateToken = require("../middleware/auth");
 
 // GET all orders
 router.get("/", (req, res) => {
@@ -27,9 +27,13 @@ router.get("/", (req, res) => {
 
 
 // GET orders by user
-router.get("/user/:userId", (req, res) => {
+router.get("/user/:userId", authenticateToken, (req, res) => {
   const userId = req.params.userId;
-
+  if (parseInt(userId) !== req.user.id) {
+    return res.status(403).json({
+      message: "Access denied"
+    });
+  }
   const query = `
     SELECT *
     FROM orders
@@ -77,9 +81,10 @@ router.get("/:id", (req, res) => {
 
 
 // CREATE order
-router.post("/", (req, res) => {
-  const { user_id, total_amount, status } = req.body;
+router.post("/", authenticateToken, (req, res) => {
+  const { total_amount, status } = req.body;
 
+  const user_id = req.user.id;
   if (!user_id || !total_amount) {
     return res.status(400).json({
       message: "Required fields missing",
@@ -116,7 +121,7 @@ router.post("/", (req, res) => {
 
 
 // UPDATE order status
-router.put("/:id", (req, res) => {
+router.put("/:id",authenticateToken, (req, res) => {
   const orderId = req.params.id;
   const { status } = req.body;
 
@@ -157,7 +162,7 @@ router.put("/:id", (req, res) => {
 
 
 // DELETE order
-router.delete("/:id", (req, res) => {
+router.delete("/:id",authenticateToken, (req, res) => {
   const orderId = req.params.id;
 
   const query = `

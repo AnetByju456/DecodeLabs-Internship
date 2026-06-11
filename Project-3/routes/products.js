@@ -33,8 +33,9 @@ router.get("/", (req, res) => {
 
 
 // GET single product
-router.get("/:id", (req, res) => {
+router.get("/:id",  (req, res) => {
   const productId = req.params.id;
+  
 
   const query = "SELECT * FROM products WHERE id = ?";
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../config/db");
-
+const authenticateToken = require("../middleware/auth");
 
 // GET all carts
 router.get("/", (req, res) => {
@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
 
 
 // GET cart by id
-router.get("/:id", (req, res) => {
+router.get("/:id", authenticateToken, (req, res) => {
   const cartId = req.params.id;
 
   const query = `
@@ -55,8 +55,8 @@ router.get("/:id", (req, res) => {
 
 
 // CREATE cart
-router.post("/", (req, res) => {
-  const { user_id } = req.body;
+router.post("/",authenticateToken, (req, res) => {
+  const user_id  = req.user.id;
 
   if (!user_id) {
     return res.status(400).json({
