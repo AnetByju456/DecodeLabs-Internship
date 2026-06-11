@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../config/db");
-
+const authenticateToken = require("../middleware/auth");
 
 // GET all products with optional filters
 router.get("/", (req, res) => {
@@ -57,8 +57,10 @@ router.get("/:id", (req, res) => {
 
 
 // CREATE product
-router.post("/", (req, res) => {
-  const { name, category, price, type, user_id } = req.body;
+router.post("/", authenticateToken, (req, res) => {
+  const { name, category, price, type } = req.body;
+
+  const user_id = req.user.id;
 
   if (!name || !category || !price || !type || !user_id) {
     return res.status(400).json({
