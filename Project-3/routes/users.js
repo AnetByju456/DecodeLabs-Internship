@@ -3,6 +3,7 @@ const router = express.Router();
 const connection = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const authenticateToken = require("../middleware/auth");
 
 
 // REGISTER USER
@@ -124,8 +125,13 @@ router.post("/login", (req, res) => {
 
 
 // GET USER BY ID
-router.get("/:id", (req, res) => {
+router.get("/:id", authenticateToken, (req, res) => {
   const userId = req.params.id;
+  if (parseInt(userId) !== req.user.id) {
+    return res.status(403).json({
+      message: "Access denied"
+    });
+  }
 
   const query = `
     SELECT id, name, email, phone, role, created_at
