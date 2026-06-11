@@ -1,9 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../config/db");
+const authenticateToken = require("../middleware/auth");
 
-router.get("/:userId", (req, res) => {
+router.get("/:userId", authenticateToken, (req, res) => {
   const userId = req.params.userId;
+  if (parseInt(userId) !== req.user.id) {
+    return res.status(403).json({
+      message: "Access denied"
+    });
+  }
 
   const dashboardData = {};
 
